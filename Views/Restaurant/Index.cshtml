@@ -1,10 +1,11 @@
-@model IEnumerable<RestaurantRaterMVC.Models.Restaurants.RestaurantListItem>
+@model IEnumerable<RestaurantRaterMVC.Models.Restaurant.RestaurantListItem>
+
 @{
-    ViewData["Title"] = "Restaurant Idex";
+    ViewData["Title"] = "Restaurant Index";
 }
 <h1>Restaurant Index</h1>
 <p>
-    <a asp-action="Create">Create Restaurant</a>
+    @Html.ActionLink("Create Restaurant", "Create")
 </p>
 <table class="table">
     <thead>
@@ -44,3 +45,5 @@
         }
     </tbody>
 </table>
+
+

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RestaurantRaterMVC.Controllers.Data
+namespace RestaurantRaterMVC.Data
 {
     public class Restaurant
     {

@@ -3,19 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using RestaurantRaterMVC.Controllers.Data;
-using RestaurantRaterMVC.Models.Restaurants;
+using RestaurantRaterMVC.Data;
+using RestaurantRaterMVC.Models.Restaurant;
 
-namespace RestaurantRaterMVC.Services.Restaurant
-{
-    public class RestaurantService
+public class RestaurantService : IRestaurantService
     {
-        public RestaurantService()
-        {
-            
-        }
-            private RestaurantDbContext _context;
-            public RestaurantService(RestaurantDbContext context)
+        private RestaurantDbContext _context;
+        public RestaurantService(RestaurantDbContext context)
             {
                 _context = context;
             }
@@ -32,5 +26,28 @@ namespace RestaurantRaterMVC.Services.Restaurant
 
             return restaurants;
         }
+        public async Task<bool> CreateRestaurant(RestaurantCreate model)
+        {
+            Restaurant restaurant = new Restaurant()
+            {
+                Name = model.Name,
+                Location = model.Location,
+            };
+            _context.Restaurants.Add(restaurant);
+            return await _context.SaveChangesAsync() == 1;
+        }
+        public Task<RestaurantDetail> GetRestaurantById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateRestaurant(RestaurantEdit model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteRestaurant(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
-}

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace RestaurantRaterMVC.Controllers.Data
+namespace RestaurantRaterMVC.Data
 {
     public class RestaurantDbContext : DbContext
     {
