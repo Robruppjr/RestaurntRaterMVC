@@ -9,6 +9,7 @@ namespace RestaurantRaterMVC.Data
     {
         public int Id { get; set; }
         public int RestaurantId { get; set; }
+        public double Score { get; set; }
         public double FoodScore { get; set; }
         public double CleanlinessScore { get; set; }
         public double AtmosphereScore { get; set; }

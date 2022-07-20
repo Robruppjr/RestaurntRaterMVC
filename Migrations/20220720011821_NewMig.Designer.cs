@@ -11,8 +11,8 @@ using RestaurantRaterMVC.Data;
 namespace RestaurantRaterMVC.Migrations
 {
     [DbContext(typeof(RestaurantDbContext))]
-    [Migration("20220715010930_InitialMig")]
-    partial class InitialMig
+    [Migration("20220720011821_NewMig")]
+    partial class NewMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,9 @@ namespace RestaurantRaterMVC.Migrations
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
+                    b.Property<double>("Score")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RestaurantId");
@@ -67,9 +70,10 @@ namespace RestaurantRaterMVC.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+                    b.Property<double>("Score")
+                        .HasColumnType("flot");
 
                     b.HasKey("Id");
-
                     b.ToTable("Restaurants");
                 });
 

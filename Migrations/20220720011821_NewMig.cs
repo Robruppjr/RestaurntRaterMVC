@@ -4,7 +4,7 @@
 
 namespace RestaurantRaterMVC.Migrations
 {
-    public partial class InitialMig : Migration
+    public partial class NewMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,8 @@ namespace RestaurantRaterMVC.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Location = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Score = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,6 +30,7 @@ namespace RestaurantRaterMVC.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RestaurantId = table.Column<int>(type: "int", nullable: false),
+                    Score = table.Column<double>(type: "float", nullable: false),
                     FoodScore = table.Column<double>(type: "float", nullable: false),
                     CleanlinessScore = table.Column<double>(type: "float", nullable: false),
                     AtmosphereScore = table.Column<double>(type: "float", nullable: false)

@@ -36,18 +36,36 @@ public class RestaurantService : IRestaurantService
             _context.Restaurants.Add(restaurant);
             return await _context.SaveChangesAsync() == 1;
         }
-        public Task<RestaurantDetail> GetRestaurantById(int id)
+        public async Task<RestaurantDetail> GetRestaurantById(int id)
         {
-            throw new NotImplementedException();
+            Restaurant restaurant = await _context.Restaurants.Include(r => r.Ratings).FirstOrDefaultAsync(r => r.Id == id);
+            RestaurantDetail restaurantDetail = new RestaurantDetail()
+            {
+                Id = restaurant.Id,
+                Name = restaurant.Name,
+                Location = restaurant.Location,
+                Score = restaurant.Score
+            };
+            return restaurantDetail;
         }
 
-        public Task<bool> UpdateRestaurant(RestaurantEdit model)
+        public async Task<bool> UpdateRestaurant(RestaurantEdit model)
         {
-            throw new NotImplementedException();
+            Restaurant restaurant = await _context.Restaurants.FindAsync(model.Id);
+            {
+                restaurant.Name = model.Name;
+                restaurant.Location = model.Location;
+            };
+            var numberOfChanges = await _context.SaveChangesAsync();
+            return numberOfChanges == 1;
+
         }
 
-        public Task<bool> DeleteRestaurant(int id)
+        public async Task<bool> DeleteRestaurant(int id)
         {
-            throw new NotImplementedException();
+            Restaurant restaurant = await _context.Restaurants.FindAsync(id);
+            _context.Restaurants.Remove(restaurant);
+            var numberOfChanges = await _context.SaveChangesAsync();
+            return numberOfChanges == 1;
         }
     }

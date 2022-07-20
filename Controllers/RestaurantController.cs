@@ -25,20 +25,53 @@ namespace RestaurantRaterMVC.Controllers
         [ActionName("Details")]
         public async Task<IActionResult> Restaurant(int id)
         {
-            Restaurant restaurant = await _context.Restaurants
-                .Include(r => r.Ratings)
-                .FirstOrDefaultAsync(r => r.Id == id);
-            if (restaurant == null)
-            return RedirectToAction(nameof(Index));
-            RestaurantDetail restaurantDetail = new RestaurantDetail()
+            var restaurant = await _service.GetRestaurantById(id);
+            if(restaurant == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(restaurant);
+        }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var restaurant = await _service.GetRestaurantById(id);
+            if( restaurant == null)
+                return RedirectToAction(nameof(Index));
+            var restaurantEdit = new RestaurantEdit()
             {
                 Id = restaurant.Id,
                 Name = restaurant.Name,
-                Location = restaurant.Location,
-                Score = restaurant.Score
+                Location = restaurant.Location
             };
-
+            return View(restaurantEdit);
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            var restaurant = await _service.GetRestaurantById(id);
+            if (restaurant == null)
+                return RedirectToAction(nameof(Index));
+            RestaurantDetail restaurantDetail =  new RestaurantDetail()
+            {
+                Id = restaurant.Id,
+                Name = restaurant.Name,
+                Location = restaurant.Location
+            };
             return View(restaurantDetail);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, RestaurantDetail model)
+        {
+            await _service.DeleteRestaurant(id);
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, RestaurantEdit model)
+        {
+            if(!ModelState.IsValid)
+                return View(model);
+                await _service.UpdateRestaurant(model);
+                return RedirectToAction("Details", new { id = model.Id});
+
         }
 
         [HttpPost]
